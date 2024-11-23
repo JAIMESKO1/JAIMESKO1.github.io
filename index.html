@@ -3,11 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Récupérer l'IP</title>
+    <title>Image Interactif</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        img {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+        }
+    </style>
 </head>
 <body>
-    <h1>Récupération de l'adresse IP</h1>
-    <p>Votre adresse IP sera affichée dans la console.</p>
+    <!-- Ton image hébergée -->
+    <img id="interactiveImage" src="https://jaimesko1.github.io/Free-Logos-PNG-File.png" alt="Free Logos" width="600">
     
+    <script>
+        // Ajout d'un événement au clic sur l'image
+        const image = document.getElementById("interactiveImage");
+
+        image.addEventListener("click", function () {
+            alert("Vous avez cliqué sur l'image !");
+        });
+
+        // Exemple : Changer l'image au clic
+        image.addEventListener("dblclick", function () {
+            image.src = "https://via.placeholder.com/600x400/0000FF/FFFFFF?text=Nouvelle+Image";
+        });
+    </script>
 </body>
 </html>
